@@ -93,6 +93,7 @@ end
         @test length(readdir(scratch_dir(global_uuid, "GlobalSpace"))) == 1
 
         # Test that a gc() doesn't remove anything, and that there is no orphanage
+        run(`cat $(joinpath(first(Base.DEPOT_PATH), "logs", "scratch_usage.toml"))`)
         Pkg.gc()
         orphaned_path = joinpath(first(Base.DEPOT_PATH), "logs", "orphaned.toml")
         @test isfile(scratch_dir(su_uuid, "1.0.0", "ScratchUsage-1.0.0"))
